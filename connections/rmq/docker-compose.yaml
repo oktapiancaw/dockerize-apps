@@ -1,0 +1,21 @@
+version: "3"
+services:
+  rabbitmq:
+    image: rabbitmq:management
+    container_name: 'rabbit-queue'
+    ports:
+        - 5672:5672
+        - 15672:15672
+    environment:
+        - RABBITMQ_DEFAULT_PASS=ret@2o22
+        - RABBITMQ_DEFAULT_USER=reta
+        - RABBITMQ_DEFAULT_VHOST=reta
+    volumes:
+        - ~/.docker-conf/rabbitmq/data/:/data/lib/rabbitmq/
+        - ~/.docker-conf/rabbitmq/log/:/data/log/rabbitmq
+    networks:
+        - rabbitmq_net
+
+networks:
+  rabbitmq_net:
+    driver: bridge

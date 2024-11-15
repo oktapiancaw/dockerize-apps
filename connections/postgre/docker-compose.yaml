@@ -1,0 +1,35 @@
+services:
+  # ? Basic usages
+  local:
+    image: postgres:alpine3.20
+    ports:
+      - 25430:5432
+    environment:
+      POSTGRES_DB: default
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: rahasia
+  
+  # ? Postgis
+  # * Note by jordi : "di kube ga bisa di deploy"
+  local-postgis:
+    image: postgis/postgis:13-master
+    environment:
+      - POSTGRES_DB=default
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=rahasia
+    ports:
+      - "25431:5432"
+
+  # ? Postgis with kartoza fork
+  local-kartoza:
+    image: kartoza/postgis:latest
+    environment:
+      - POSTGRES_DB=default
+      - POSTGRES_USER=admin
+      - POSTGRES_PASS=rahasia
+      - POSTGRES_MULTIPLE_EXTENSIONS=postgis,hstore,postgis_topology,postgis_raster,pgrouting
+      - RUN_AS_ROOT=true
+    ports:
+      - "25432:5432"
+    healthcheck:
+      test: "PGPASSWORD=docker pg_isready -h 127.0.0.1 -U docker -d gis"

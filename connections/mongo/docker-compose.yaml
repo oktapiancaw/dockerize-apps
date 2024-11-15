@@ -1,0 +1,48 @@
+services:
+  # ? Frequently used
+  local-v4:
+    image: mongo:4.4
+    ports:
+      - 27017:27017
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: rahasia
+
+  # ? Latest version
+  local-latest:
+    image: mongo:latest
+    ports:
+      - 27018:27017
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: rahasia
+
+  # ? Replica implementation
+  local-replica:
+    build:
+      context: ./mongodb_replica
+      args:
+        MONGO_VERSION: 4
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: rahasia
+      MONGO_REPLICA_HOST: 127.0.0.1
+      MONGO_REPLICA_PORT: 27019
+      MONGO_COMMAND: "mongo"
+    ports:
+      - "27019:27019"
+    restart: unless-stopped
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "mongo",
+          "admin",
+          "--port",
+          "27019",
+          "--eval",
+          "db.adminCommand('ping').ok",
+        ]
+      interval: 5s
+      timeout: 2s
+      retries: 20
