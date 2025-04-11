@@ -1,0 +1,6 @@
+
+others/
+others/**/*
+apps/
+apps/**/*
+.vscode/

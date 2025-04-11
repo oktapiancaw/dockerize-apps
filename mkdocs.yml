@@ -1,0 +1,17 @@
+site_name: Dockerize App
+theme:
+  name: material
+  palette:
+    scheme: slate
+    primary: indigo
+  features:
+    - content.code.copy
+    - content.code.select
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences

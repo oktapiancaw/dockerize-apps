@@ -1,0 +1,14 @@
+services:
+  local-latest:
+    image: mongo:latest
+    container_name: mongo-latest
+    ports:
+      - 27017:27017
+    network_mode: bridge
+    
+  local-v4:
+    image: mongo:4.4
+    container_name: mongo-v4
+    ports:
+      - 27018:27017
+    network_mode: bridge

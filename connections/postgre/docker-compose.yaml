@@ -33,3 +33,17 @@ services:
       - "25432:5432"
     healthcheck:
       test: "PGPASSWORD=docker pg_isready -h 127.0.0.1 -U docker -d gis"
+
+  outline:
+    image: postgres:alpine3.20
+    ports:
+      - 25431:5432
+    healthcheck:
+      test: ["CMD", "pg_isready", "-d", "outline", "-U", "postgres"]
+      interval: 30s
+      timeout: 20s
+      retries: 3
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: rahasia
+      POSTGRES_DB: outline

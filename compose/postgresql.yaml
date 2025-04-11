@@ -1,0 +1,14 @@
+services:
+  local-latest:
+    image: postgres:latest
+    container_name: postgres-latest
+    ports:
+      - 5432:5432
+    network_mode: bridge
+    
+  local-alpine:
+    image: postgres:alpine3.20
+    container_name: postgres-v4
+    ports:
+      - 5433:5432
+    network_mode: bridge
